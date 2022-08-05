@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
-ARG git_owner="singnet"
-ARG git_branch="master"
+ARG git_owner="raghu-snet"
+ARG git_branch="learn-grpc"
 ARG snetd_version
 
 ENV SINGNET_REPOS=/opt/singnet
