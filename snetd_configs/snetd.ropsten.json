@@ -1,17 +1,12 @@
 {
   "daemon_end_point": "0.0.0.0:8052",
   "ipfs_end_point": "http://ipfs.singularitynet.io:80",
+  "passthrough_enabled": true,
   "blockchain_network_selected": "ropsten",
   "passthrough_endpoint": "http://localhost:8051",
   "organization_id": "snet-test-2",
   "service_id": "test-01",
-  "payment_channel_storage_server": {
-    "data_dir": "/opt/singnet/etcd/ropsten"
-  },
-  "log": {
-    "level": "debug",
-    "output": {
-      "type": "stdout"
-    }
-  }
+  "payment_channel_cert_path": "/home/adminuser/Downloads/ca.pem",
+ "payment_channel_ca_path": "/home/adminuser/Downloads/ca.pem",
+ "payment_channel_key_path": "/home/adminuser/Downloads/client-key.pem"
 }
