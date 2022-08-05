@@ -1,5 +1,5 @@
 registry = {
     "example_service": {
-        "grpc": 7003,
+        "grpc": 8051,
     },
 }

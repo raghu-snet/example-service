@@ -20,27 +20,24 @@ if __name__ == "__main__":
         if endpoint == "":
             endpoint = "localhost:{}".format(registry["example_service"]["grpc"])
 
-        grpc_method = input("Method (add|sub|mul|div): ") if not test_flag else "mul"
-        a = float(input("Number 1: ") if not test_flag else "12")
-        b = float(input("Number 2: ") if not test_flag else "7")
+
+        grpc_method = input("Method (welcome|hello: ") if not test_flag else "hello"
+        a = input("Greeting : ") if not test_flag else "Hello"
+        b = input("Message : ") if not test_flag else "John"
 
         # Open a gRPC channel
         channel = grpc.insecure_channel("{}".format(endpoint))
-        stub = grpc_ex_grpc.CalculatorStub(channel)
-        number = grpc_ex_pb2.Numbers(a=a, b=b)
+        #stub = grpc_ex_grpc.CalculatorStub(channel)
+        #number = grpc_ex_pb2.Numbers(a=a, b=b)
+        stub = grpc_ex_grpc.GreeterStub(channel)
+        msg = grpc_ex_pb2.Message(greetingMsg=a,name=b)
 
-        if grpc_method == "add":
-            response = stub.add(number)
-            print(response.value)
-        elif grpc_method == "sub":
-            response = stub.sub(number)
-            print(response.value)
-        elif grpc_method == "mul":
-            response = stub.mul(number)
-            print(response.value)
-        elif grpc_method == "div":
-            response = stub.div(number)
-            print(response.value)
+        if grpc_method == "welcome":
+            response = stub.welcome(msg)
+            print(response.message)
+        elif grpc_method == "hello":
+            response = stub.hello(msg)
+            print(response.message)
         else:
             print("Invalid method!")
             exit(1)

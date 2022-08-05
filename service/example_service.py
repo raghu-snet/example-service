@@ -44,54 +44,39 @@ Calling service...
 
 # Create a class to be added to the gRPC server
 # derived from the protobuf codes.
-class CalculatorServicer(grpc_bt_grpc.CalculatorServicer):
+class GreeterServicer(grpc_bt_grpc.GreeterServicer):
     def __init__(self):
-        self.a = 0
-        self.b = 0
-        self.result = 0
+        self.greetingMsg = ""
+        self.name = ""
+        self.result = ""
         # Just for debugging purpose.
-        log.debug("CalculatorServicer created")
+        log.debug("GreeterServicer created")
 
     # The method that will be exposed to the snet-cli call command.
     # request: incoming data
     # context: object that provides RPC-specific information (timeout, etc).
-    def add(self, request, context):
+    def welcome(self, request, context):
         # In our case, request is a Numbers() object (from .proto file)
-        self.a = request.a
-        self.b = request.b
+        self.greetingMsg = request.greetingMsg
+        self.name = request.name
 
         # To respond we need to create a Result() object (from .proto file)
         self.result = Result()
 
-        self.result.value = self.a + self.b
-        log.debug("add({},{})={}".format(self.a, self.b, self.result.value))
+        self.result.message = self.greetingMsg + " " + self.name
+        log.debug("welcome({},{})={}".format(self.greetingMsg, self.name, self.result.message))
         return self.result
 
-    def sub(self, request, context):
-        self.a = request.a
-        self.b = request.b
+    def hello(self, request, context):
+        # In our case, request is a Numbers() object (from .proto file)
+        self.greetingMsg = request.greetingMsg
+        self.name = request.name
 
+        # To respond we need to create a Result() object (from .proto file)
         self.result = Result()
-        self.result.value = self.a - self.b
-        log.debug("sub({},{})={}".format(self.a, self.b, self.result.value))
-        return self.result
 
-    def mul(self, request, context):
-        self.a = request.a
-        self.b = request.b
-
-        self.result = Result()
-        self.result.value = self.a * self.b
-        log.debug("mul({},{})={}".format(self.a, self.b, self.result.value))
-        return self.result
-
-    def div(self, request, context):
-        self.a = request.a
-        self.b = request.b
-
-        self.result = Result()
-        self.result.value = self.a / self.b
-        log.debug("div({},{})={}".format(self.a, self.b, self.result.value))
+        self.result.message = self.greetingMsg + " " + self.name
+        log.debug("hello({},{})={}".format(self.greetingMsg, self.name, self.result.message))
         return self.result
 
 
@@ -105,7 +90,8 @@ class CalculatorServicer(grpc_bt_grpc.CalculatorServicer):
 # (from generated .py files by protobuf compiler)
 def serve(max_workers=10, port=7777):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
-    grpc_bt_grpc.add_CalculatorServicer_to_server(CalculatorServicer(), server)
+    grpc_bt_grpc.add_GreeterServicer_to_server(GreeterServicer(), server)
+    #grpc_bt_grpc.add_CalculatorServicer_to_server(CalculatorServicer(), server)
     server.add_insecure_port("[::]:{}".format(port))
     return server
 
