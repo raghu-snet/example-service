@@ -13,5 +13,5 @@
   "pvt_key_for_metering": "44afe70436396df77f8ec2bcebc060d85683d10d5940d253a277e24daddca6e3",
   "metering_enabled": false,
   "model_training_enabled":false,
-  "blockchain_enabled": false
+  "blockchain_enabled": true
 }
